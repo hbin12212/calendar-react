@@ -22,11 +22,13 @@ class TrainerCalendar extends Component {
         this.moveEvent = this.moveEvent.bind(this);
         this.newEvent = this.newEvent.bind(this);
     }
+    onSelectSlot = (event) => this.selectDate(event.start);
+    onDrillDown = (date) => this.selectDate(date);
+    onNavigate = (date) => this.selectDate(date);
 
     handleDragStart = (event) => {
         this.setState({ draggedEvent: event });
     };
-
     dragFromOutsideItem = () => {
         return this.state.draggedEvent;
     };
@@ -123,6 +125,7 @@ class TrainerCalendar extends Component {
                 </ExampleControlSlot.Entry>
                 <DnDCalendar
                     popup
+                    longPressThreshold={0}
                     defaultDate={moment().toDate()}
                     defaultView="month"
                     events={this.state.events}
