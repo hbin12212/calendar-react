@@ -70,20 +70,6 @@ class TrainerCalendar extends Component {
         // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
     };
 
-    resizeEvent = ({ event, start, end }) => {
-        const { events } = this.state;
-
-        const nextEvents = events.map((existingEvent) => {
-            return existingEvent.id == event.id ? { ...existingEvent, start, end } : existingEvent;
-        });
-
-        this.setState({
-            events: nextEvents,
-        });
-
-        //alert(`${event.title} was resized to ${start}-${end}`)
-    };
-
     newEvent(event) {
         // let idList = this.state.events.map(a => a.id)
         // let newId = Math.max(...idList) + 1
@@ -125,22 +111,20 @@ class TrainerCalendar extends Component {
                 </ExampleControlSlot.Entry>
                 <DnDCalendar
                     popup
-                    longPressThreshold={0}
+                    longPressThreshold={0.0}
                     defaultDate={moment().toDate()}
                     defaultView="month"
                     events={this.state.events}
+                    resizable={false}
                     localizer={localizer}
                     onEventDrop={this.onEventDrop}
                     onEventResize={this.onEventResize}
-                    resizable
                     style={{ height: "100vh" }}
                     selectable
                     localizer={localizer}
                     onSelectEvent={(event) => alert(event.title)}
                     onSelectSlot={this.handleSelect}
                     onEventDrop={this.moveEvent}
-                    resizable
-                    onEventResize={this.resizeEvent}
                     onDragStart={console.log}
                     dragFromOutsideItem={this.state.displayDragItemInCell ? this.dragFromOutsideItem : null}
                     onDropFromOutside={this.onDropFromOutside}
